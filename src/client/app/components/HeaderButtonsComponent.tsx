@@ -9,6 +9,8 @@ import { FormattedMessage } from 'react-intl';
 import MenuModalComponent from './MenuModalComponent';
 import { hasToken } from '../utils/token';
 import getPage from '../utils/getPage';
+import store from "../index";
+import {fetchMetersDetails} from "../actions/meters";
 
 interface HeaderButtonsProps {
 	showCollapsedMenuButton: boolean;
@@ -81,5 +83,6 @@ export default class HeaderButtonsComponent extends React.Component<HeaderButton
 	private handleLogOut() {
 		localStorage.removeItem('token');
 		this.forceUpdate();
+		store.dispatch(fetchMetersDetails());
 	}
 }

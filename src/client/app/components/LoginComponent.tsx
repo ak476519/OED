@@ -11,6 +11,8 @@ import FooterComponent from '../components/FooterComponent';
 import { showErrorNotification } from '../utils/notifications';
 import { verificationApi } from '../utils/api';
 import translate from '../utils/translate';
+import store from "../index";
+import {fetchMetersDetails} from "../actions/meters";
 
 interface LoginState {
 	email: string;
@@ -105,6 +107,7 @@ class LoginComponent extends React.Component<InjectedIntlProps, LoginState> {
 				const token = await verificationApi.login(this.state.email, this.state.password);
 				localStorage.setItem('token', token);
 				browserHistory.push('/');
+				store.dispatch(fetchMetersDetails());
 			} catch (err) {
 				if (err.response && err.response.status === 401) {
 					showErrorNotification(translate('invalid.email.password'));
